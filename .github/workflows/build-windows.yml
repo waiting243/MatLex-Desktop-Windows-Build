@@ -59,7 +59,7 @@ jobs:
       - name: Upload Windows apps
         uses: actions/upload-artifact@v4
         with:
-          name: MatLex-Desktop-Windows-v11.3.1
+          name: MatLex-Desktop-Windows-v11.4.1
           path: |
             dist/*.exe
             dist/*.blockmap
