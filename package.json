@@ -1,6 +1,6 @@
 {
   "name": "matlex-desktop",
-  "version": "11.4.2",
+  "version": "11.5.0",
   "description": "MatLex materials-science study app for Windows desktop with adaptive desktop workspace",
   "main": "main.js",
   "author": "MatLex",

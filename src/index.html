@@ -6,7 +6,7 @@
 <meta name="theme-color" content="#ffffff">
 <meta name="color-scheme" content="light">
 <title>MatLex Desktop</title>
-<meta name="matlex-version" content="11.4.2-desktop">
+<meta name="matlex-version" content="11.5.0-desktop">
 <link rel="manifest" href="manifest.webmanifest">
 <style>
 :root{
@@ -1779,330 +1779,109 @@ body{
 </style>
 
 
-<style id="matlex-desktop-layout">
-/* MatLex Desktop. Desktop-only layout layer. Mobile behavior is intentionally preserved below 980px. */
-@media (min-width:980px){
-  :root{--android-bottom-inset:0px!important;--safe-bottom:0px!important;--ml-nav-space:0px!important;}
-  html,body{min-width:980px;background:
-    radial-gradient(44vw 42vh at 5% 0%,rgba(80,164,249,.14),transparent 72%),
-    radial-gradient(38vw 36vh at 100% 10%,rgba(91,177,244,.10),transparent 74%),
-    radial-gradient(38vw 38vh at 50% 100%,rgba(72,146,233,.06),transparent 76%),
-    linear-gradient(180deg,#f7fbff 0%,#f4f8fd 100%)!important;}
-  body{user-select:none;}
-  input,textarea,[contenteditable="true"],.example-en,.example-zh,.v10-answer,.v1121-answer-en,.v1121-answer-zh p{user-select:text;}
 
-  /* Home hub uses the full desktop canvas. */
-  .v10-hub{padding:52px 64px!important;display:flex;align-items:center;}
-  .v10-hub-inner{width:min(1180px,100%)!important;min-height:auto!important;margin:auto!important;padding:0!important;justify-content:center!important;}
-  .v10-hub-kicker{font-size:14px!important;letter-spacing:.08em!important;}
-  .v10-hub h1{font-size:48px!important;line-height:1.06!important;margin:10px 0 38px!important;}
-  .v10-modules{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:20px!important;}
-  .v10-module-card{min-height:250px!important;display:flex!important;flex-direction:column!important;align-items:flex-start!important;justify-content:flex-end!important;gap:18px!important;padding:28px!important;border-radius:32px!important;}
-  .v10-module-icon{width:70px!important;height:70px!important;border-radius:23px!important;}
-  .v10-module-icon svg{width:32px!important;height:32px!important;}
-  .v10-module-copy b{font-size:25px!important;margin-bottom:8px!important;}
-  .v10-module-copy span{font-size:14px!important;line-height:1.55!important;}
-  .v10-module-arrow{display:none!important;}
-  .v10-hub-foot{padding-top:26px!important;font-size:12px!important;}
-
-  /* Main English workspace. */
-  .app{max-width:none!important;width:100%!important;height:100vh!important;margin:0!important;padding:46px 64px 46px 150px!important;scroll-padding-bottom:40px!important;}
-  .app>.view.active{width:min(1180px,100%)!important;margin:0 auto!important;}
-  #learnView.active{display:grid!important;grid-template-columns:minmax(540px,1.3fr) minmax(380px,.85fr)!important;grid-template-areas:
-    "head head"
-    "start settings"
-    "stats settings"
-    "spell settings"
-    "library settings"!important;gap:14px 24px!important;align-items:start!important;}
-  #learnView>.page-head{grid-area:head!important;margin-bottom:8px!important;}
-  #learnView>.home-start{grid-area:start!important;margin:0!important;height:58px!important;}
-  #learnView>.stats{grid-area:stats!important;margin:0!important;gap:12px!important;}
-  #learnView>.spelling-card{grid-area:spell!important;margin:0!important;min-height:76px!important;}
-  #learnView>.library-card{grid-area:library!important;margin:0!important;min-height:76px!important;}
-  #learnView>.settings-grid{grid-area:settings!important;display:grid!important;grid-template-columns:1fr!important;gap:18px!important;align-self:start!important;}
-  #learnView .settings-col{min-width:0!important;}
-  #learnView .section-title{font-size:19px!important;}
-  #learnView .panel{padding:0 18px!important;}
-  #learnView .setting{min-height:64px!important;}
-  .page-title{font-size:38px!important;}
-  .stat{height:106px!important;padding:16px!important;}
-  .stat b{font-size:30px!important;}
-
-  /* Review and wrong-word pages expand instead of sitting in a phone-width column. */
-  #reviewView.active,#wrongView.active{width:min(1040px,100%)!important;}
-  #reviewView .review-overview,#reviewView .review-settings,#wrongView .wrong-filter,#wrongView .wrong-list,#wrongView .manage-inline-list{max-width:none!important;}
-  #reviewView .review-overview{padding:22px!important;}
-  #wrongView .wrong-list{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:12px!important;}
-
-  /* The shared navigation becomes a desktop side rail. Same component, same state. */
-  #mlSharedNav{
-    left:28px!important;right:auto!important;top:50%!important;bottom:auto!important;
-    width:94px!important;height:284px!important;padding:8px!important;margin:0!important;
-    transform:translate3d(0,-50%,0)!important;border-radius:29px!important;
-    grid-template-columns:1fr!important;grid-template-rows:repeat(3,1fr)!important;overflow:hidden!important;
-  }
-  #mlSharedNav::before{
-    left:8px!important;right:8px!important;top:8px!important;bottom:auto!important;
-    width:auto!important;height:calc((100% - 16px)/3)!important;border-radius:21px!important;
-    transform:translate3d(0,calc(var(--ml-nav-index,0)*100%),0)!important;
-  }
-  #mlSharedNav button{height:auto!important;min-height:0!important;gap:7px!important;font-size:11px!important;}
-  #mlSharedNav button svg{width:24px!important;height:24px!important;}
-
-  /* Interview / concept modules fill the desktop workspace. */
-  .v10-module-scroll{width:min(1180px,calc(100vw - 180px))!important;margin:0 auto 0 132px!important;padding:46px 44px 46px!important;scroll-padding-bottom:36px!important;}
-  .v10-topbar{margin-bottom:22px!important;}
-  .v10-topbar h1{font-size:38px!important;}
-  .v101-hero{min-height:118px!important;padding:22px!important;}
-  .v101-stats{gap:12px!important;}
-  .v101-stat{height:86px!important;padding:14px!important;}
-  .v101-library-entry{height:76px!important;}
-  .v101-library-panel.open .v10-list{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:12px!important;}
-  .v10-list-card{min-height:150px!important;padding:18px!important;}
-  .v10-study-shell{max-width:900px!important;margin:18px auto!important;padding:28px!important;}
-  .v10-study-shell h2{font-size:27px!important;}
-  .v10-answer{font-size:16px!important;}
-
-  /* Professional-English library becomes a two-column desktop catalogue. */
-  .library-screen{max-width:none!important;width:100%!important;padding:42px 64px 42px 150px!important;}
-  .library-head,.library-tools,.library-count,.library-list{width:min(1180px,100%)!important;margin-left:auto!important;margin-right:auto!important;}
-  .library-list{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:12px!important;align-content:start!important;padding:4px 4px 28px!important;}
-  .library-row{min-height:88px!important;border:0!important;border-radius:20px!important;padding:14px 16px!important;background:rgba(255,255,255,.055)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.54),0 8px 22px rgba(47,74,108,.04)!important;}
-  .library-row:first-child{border-top:0!important;}
-  .library-word b{font-size:17px!important;}
-  .library-meaning{font-size:12px!important;}
-
-  /* Study mode uses a wide centered reading area. */
-  .study{width:min(980px,calc(100vw - 120px))!important;padding:36px 24px 44px!important;}
-  .study-top{margin-bottom:18px!important;}
-  .study-body{max-width:900px!important;}
-  .quiz-card,.lesson-card{max-width:900px!important;margin-left:auto!important;margin-right:auto!important;padding:28px!important;}
-  .prompt{min-height:180px!important;}
-  .term.short{font-size:46px!important;}.term.medium{font-size:40px!important;}.term.long{font-size:34px!important;}
-  .lesson-word{font-size:38px!important;}
-  .options{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:12px!important;}
-  .option{min-height:64px!important;font-size:15px!important;}
-  .v1131-word-manage{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:10px!important;}
-  .word-manage button{height:44px!important;font-size:12px!important;}
-  .continue{width:min(320px,60%)!important;height:50px!important;}
-
-  /* Mobile bottom sheets become centered desktop dialogs. */
-  .v10-sheet-backdrop{display:flex!important;align-items:center!important;justify-content:center!important;padding:28px!important;}
-  .v10-sheet-backdrop:not(.show){pointer-events:none!important;}
-  .v10-sheet{
-    position:relative!important;left:auto!important;right:auto!important;top:auto!important;bottom:auto!important;
-    width:min(720px,calc(100vw - 120px))!important;max-height:min(82vh,760px)!important;
-    transform:translate3d(0,18px,0) scale(.985)!important;opacity:0!important;border-radius:30px!important;
-  }
-  .v10-sheet-backdrop.show .v10-sheet{transform:none!important;opacity:1!important;animation:none!important;}
-  .v10-sheet-backdrop.closing .v10-sheet{transform:translate3d(0,12px,0) scale(.99)!important;opacity:0!important;animation:none!important;}
-  .v10-sheet-body{padding-left:20px!important;padding-right:20px!important;}
-  .v10-sheet-head{padding-left:22px!important;padding-right:22px!important;}
-
-  /* Desktop scrollbars are visible and unobtrusive. */
-  .app,.v10-module-scroll,.library-list,.study,.v10-sheet-body{scrollbar-width:thin!important;scrollbar-color:rgba(100,124,154,.28) transparent!important;}
-  .app::-webkit-scrollbar,.v10-module-scroll::-webkit-scrollbar,.library-list::-webkit-scrollbar,.study::-webkit-scrollbar,.v10-sheet-body::-webkit-scrollbar{display:block!important;width:8px!important;height:8px!important;}
-  .app::-webkit-scrollbar-thumb,.v10-module-scroll::-webkit-scrollbar-thumb,.library-list::-webkit-scrollbar-thumb,.study::-webkit-scrollbar-thumb,.v10-sheet-body::-webkit-scrollbar-thumb{background:rgba(100,124,154,.25)!important;border-radius:999px!important;}
+<style id="matlex-desktop-v115-unified">
+/* MatLex Desktop v11.5.0
+   One desktop layout system and one glass material language for the whole app.
+   Mobile rules remain untouched below 980px. */
+:root{
+  --desktop-titlebar-h:50px;
+  --desktop-rail-w:94px;
+  --desktop-rail-left:26px;
+  --desktop-content-max:1320px;
+  --desktop-gap:24px;
+  --desktop-glass:rgba(255,255,255,.15);
+  --desktop-glass-soft:rgba(255,255,255,.075);
+  --desktop-glass-strong:rgba(255,255,255,.24);
+  --desktop-line:rgba(255,255,255,.58);
+  --desktop-line-soft:rgba(194,211,231,.34);
+  --desktop-shadow:0 14px 36px rgba(45,72,105,.055),inset 0 1px 0 rgba(255,255,255,.62);
+  --desktop-blur:blur(24px) saturate(158%) brightness(1.015);
+  --desktop-radius:24px;
+  --desktop-radius-sm:18px;
 }
-
-@media (min-width:1400px){
-  .app{padding-left:170px!important;padding-right:78px!important;}
-  .v10-module-scroll{width:min(1260px,calc(100vw - 220px))!important;margin-left:150px!important;}
-  .library-screen{padding-left:170px!important;padding-right:78px!important;}
-  .v10-hub-inner{width:min(1260px,100%)!important;}
+.desktop-titlebar{
+  position:fixed;inset:0 0 auto 0;height:var(--desktop-titlebar-h);z-index:12000;
+  display:flex;align-items:center;justify-content:space-between;padding:0 8px 0 14px;
+  color:#2d4158;background:var(--desktop-glass);border-bottom:1px solid var(--desktop-line-soft);
+  box-shadow:0 7px 24px rgba(45,72,105,.035),inset 0 1px 0 rgba(255,255,255,.52);
+  -webkit-backdrop-filter:var(--desktop-blur);backdrop-filter:var(--desktop-blur);
+  -webkit-app-region:drag;user-select:none;
 }
-</style>
+.desktop-titlebar-brand{display:flex;align-items:center;gap:9px;font-size:12.5px;font-weight:680;letter-spacing:.01em}
+.desktop-titlebar-logo{width:28px;height:28px;border-radius:10px;display:grid;place-items:center;color:#1680f0;background:var(--desktop-glass-soft);border:1px solid var(--desktop-line);box-shadow:inset 0 1px 0 rgba(255,255,255,.56)}
+.desktop-titlebar-logo svg{width:15px;height:15px}
+.desktop-window-controls{height:38px;display:flex;align-items:center;gap:3px;padding:3px;border-radius:14px;background:var(--desktop-glass-soft);border:1px solid var(--desktop-line);box-shadow:inset 0 1px 0 rgba(255,255,255,.5);-webkit-backdrop-filter:blur(18px) saturate(150%);backdrop-filter:blur(18px) saturate(150%);-webkit-app-region:no-drag}
+.desktop-window-controls button{width:40px;height:30px;border:0;border-radius:10px;background:transparent;color:#546a82;display:grid;place-items:center;padding:0;transition:background .14s ease,color .14s ease}
+.desktop-window-controls button svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round}
+.desktop-window-controls button:hover{background:rgba(80,128,180,.11);color:#20374f}.desktop-window-controls .desktop-close-window:hover{background:rgba(224,63,72,.92);color:#fff}.desktop-window-controls .restore-icon{display:none}.desktop-titlebar.maximized .maximize-icon{display:none}.desktop-titlebar.maximized .restore-icon{display:block}
 
-
-<style id="matlex-desktop-v114-layout">
-:root{--desktop-titlebar-h:46px;}
-.desktop-titlebar{position:fixed;inset:0 0 auto 0;height:var(--desktop-titlebar-h);z-index:12000;display:flex;align-items:center;justify-content:space-between;padding:0 6px 0 14px;color:#24364b;background:linear-gradient(180deg,rgba(250,253,255,.86),rgba(244,249,255,.68));border-bottom:1px solid rgba(208,221,237,.62);box-shadow:0 1px 0 rgba(255,255,255,.72);-webkit-backdrop-filter:blur(24px) saturate(145%);backdrop-filter:blur(24px) saturate(145%);-webkit-app-region:drag;user-select:none}
-.desktop-titlebar-brand{display:flex;align-items:center;gap:9px;font-size:13px;font-weight:650;letter-spacing:.01em}.desktop-titlebar-logo{width:25px;height:25px;border-radius:9px;display:grid;place-items:center;color:#1680f0;background:rgba(255,255,255,.52);border:1px solid rgba(255,255,255,.82);box-shadow:inset 0 1px 0 rgba(255,255,255,.86)}.desktop-titlebar-logo svg{width:15px;height:15px}
-.desktop-window-controls{height:100%;display:flex;align-items:stretch;-webkit-app-region:no-drag}.desktop-window-controls button{width:48px;height:100%;border:0;background:transparent;color:#53677e;display:grid;place-items:center;padding:0;transition:background .14s ease,color .14s ease}.desktop-window-controls button svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round}.desktop-window-controls button:hover{background:rgba(91,130,173,.10);color:#20344b}.desktop-window-controls button:active{background:rgba(91,130,173,.16)}.desktop-window-controls .desktop-close-window:hover{background:#e5484d;color:#fff}.desktop-window-controls .restore-icon{display:none}.desktop-titlebar.maximized .maximize-icon{display:none}.desktop-titlebar.maximized .restore-icon{display:block}
 @media(min-width:980px){
-  html,body{height:100%;overflow:hidden}
-  .app{height:calc(100vh - var(--desktop-titlebar-h))!important;margin-top:var(--desktop-titlebar-h)!important;padding-top:36px!important}
-  .v10-hub,.v10-module-screen,.overlay,.library-overlay,.sheet-overlay,.v10-sheet-backdrop{top:var(--desktop-titlebar-h)!important;height:calc(100vh - var(--desktop-titlebar-h))!important}
-  #mlSharedNav{top:calc(50% + var(--desktop-titlebar-h)/2)!important}
+  :root{--android-bottom-inset:0px!important;--safe-bottom:0px!important;--ml-nav-space:0px!important}
+  html,body{height:100%;min-width:980px;overflow:hidden;background:radial-gradient(48vw 42vh at 6% 0%,rgba(83,166,248,.13),transparent 72%),radial-gradient(42vw 38vh at 96% 9%,rgba(105,181,245,.085),transparent 74%),linear-gradient(180deg,#f8fbff,#f4f8fd)!important}
+  body{user-select:none}input,textarea,[contenteditable="true"],.example-en,.example-zh,.v10-answer,.v1121-answer-en,.v1121-answer-zh p{user-select:text}
 
-  /* Professional English: two intentionally aligned desktop columns. */
-  #learnView.active{display:grid!important;grid-template-columns:minmax(560px,1.15fr) minmax(390px,.85fr)!important;grid-template-areas:"head head" "primary settings"!important;gap:16px 28px!important;align-items:start!important}
-  #learnView>.page-head{grid-area:head!important;margin:0 0 4px!important}
-  #learnView>.desktop-english-primary{grid-area:primary!important;display:grid!important;grid-template-columns:1fr!important;gap:14px!important;min-width:0!important}
-  #learnView>.settings-grid{grid-area:settings!important;margin:0!important;align-self:start!important;gap:14px!important}
-  .desktop-column-title{font-size:19px;line-height:1.2;font-weight:720;letter-spacing:-.025em;margin:0 2px 2px;color:#172335}
-  .desktop-english-primary>.home-start,.desktop-english-primary>.stats,.desktop-english-primary>.spelling-card,.desktop-english-primary>.library-card{width:100%!important;margin:0!important}
-  .desktop-english-primary>.home-start{height:58px!important}
-  #learnView .settings-col>.section-title{margin-top:0!important;margin-bottom:16px!important;line-height:1.2!important}
-  #learnView .panel{min-height:210px!important}
-  #learnView .sound-disclosure>summary{min-height:76px!important}
-
-  /* Interview and concept dashboards now use both sides of a desktop display. */
-  .v10-module-screen:not(.v104-studying) .v10-module-scroll{display:grid!important;grid-template-columns:minmax(520px,1.04fr) minmax(360px,.72fr)!important;grid-auto-rows:max-content!important;column-gap:28px!important;row-gap:14px!important;align-content:start!important}
-  .v10-module-screen:not(.v104-studying) .v10-topbar{grid-column:1/-1!important;margin-bottom:4px!important}
-  .v10-module-screen:not(.v104-studying) .v101-hero,.v10-module-screen:not(.v104-studying) .v101-stats,.v10-module-screen:not(.v104-studying) .v101-library-entry,.v10-module-screen:not(.v104-studying) .v111-progress{grid-column:1!important;margin:0!important}
-  .v10-module-screen:not(.v104-studying) .desktop-module-aside{grid-column:2!important;grid-row:2 / span 5!important;align-self:start!important}
-  .v10-module-screen:not(.v104-studying) .v101-library-panel{grid-column:1/-1!important;margin-top:10px!important}
-  .v10-module-screen:not(.v104-studying)>* #v10InterviewStudy,.v10-module-screen:not(.v104-studying)>* #v10ConceptStudy{grid-column:1/-1!important}
-  .desktop-module-aside{padding:22px;border-radius:26px;background:rgba(255,255,255,.30);border:1px solid rgba(255,255,255,.76);box-shadow:inset 0 1px 0 rgba(255,255,255,.80),0 14px 34px rgba(52,82,118,.06);-webkit-backdrop-filter:blur(24px) saturate(145%);backdrop-filter:blur(24px) saturate(145%)}
-  .desktop-aside-head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:18px}.desktop-aside-head h2{margin:0;font-size:20px;line-height:1.2}.desktop-aside-head span{font-size:12px;color:#8190a3}
-  .desktop-aside-summary{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:20px}.desktop-aside-mini{padding:12px 11px;border-radius:17px;background:rgba(255,255,255,.25);border:1px solid rgba(255,255,255,.58)}.desktop-aside-mini span{display:block;color:#8090a3;font-size:11px}.desktop-aside-mini b{display:block;margin-top:5px;font-size:21px;color:#172335}
-  .desktop-aside-section-title{font-size:12px;font-weight:680;color:#64778d;margin-bottom:10px}.desktop-category-progress{display:grid;gap:10px}.desktop-category-row{display:grid;grid-template-columns:minmax(0,1fr) 44px;gap:10px;align-items:center}.desktop-category-label{min-width:0}.desktop-category-label span{display:block;font-size:12px;color:#32455c;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.desktop-category-track{height:5px;border-radius:99px;background:rgba(108,131,159,.10);margin-top:6px;overflow:hidden}.desktop-category-track i{display:block;height:100%;border-radius:inherit;background:linear-gradient(90deg,#52a5ff,#2184ef)}.desktop-category-row strong{text-align:right;font-size:11px;color:#7d8da0;font-weight:600}
-  .desktop-aside-actions{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:20px}.desktop-aside-actions button{height:42px;border-radius:14px;border:1px solid rgba(255,255,255,.72);background:rgba(255,255,255,.31);color:#31465e;font-size:12px;font-weight:650}.desktop-aside-actions button.primary-aside{color:#fff;background:linear-gradient(135deg,rgba(64,157,251,.94),rgba(24,124,237,.92));border-color:rgba(255,255,255,.36)}
-  .v10-module-screen.v104-studying .v10-module-scroll{display:block!important}.v10-module-screen.v104-studying .desktop-module-aside{display:none!important}
-
-  /* Study mode gets an explicit back-to-module-home control. */
-  .desktop-study-return{display:inline-flex!important;align-items:center!important;gap:7px!important;align-self:flex-start!important;height:38px!important;padding:0 13px!important;margin:0 0 14px!important;border:1px solid rgba(255,255,255,.72)!important;border-radius:13px!important;background:rgba(255,255,255,.30)!important;color:#50657d!important;font-size:12px!important;font-weight:650!important;box-shadow:none!important}.desktop-study-return svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-}
-@media(min-width:1500px){
-  .app>.view.active,.library-head,.library-tools,.library-count,.library-list{width:min(1280px,100%)!important}
-  .v10-module-scroll{width:min(1320px,calc(100vw - 220px))!important}
-  .v10-hub-inner{width:min(1320px,100%)!important}
-}
-</style>
-
-
-<style id="matlex-desktop-v1141-polish">
-/* Desktop v11.4.2: responsive right panels and one unified desktop glass material. */
-:root{--desktop-titlebar-h:50px;}
-.desktop-titlebar{padding:0 9px 0 16px!important;background:linear-gradient(180deg,rgba(249,253,255,.82),rgba(239,247,255,.60))!important;border-bottom:1px solid rgba(191,211,233,.48)!important;box-shadow:0 7px 24px rgba(56,87,124,.045),inset 0 1px 0 rgba(255,255,255,.88)!important;}
-.desktop-titlebar-brand{font-size:12.5px!important;color:#32465e!important;}
-.desktop-titlebar-logo{width:27px!important;height:27px!important;border-radius:10px!important;background:rgba(255,255,255,.36)!important;border-color:rgba(255,255,255,.64)!important;}
-.desktop-window-controls{height:38px!important;align-self:center!important;padding:3px!important;gap:3px!important;border-radius:14px!important;background:rgba(255,255,255,.28)!important;border:1px solid rgba(255,255,255,.62)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.72),0 6px 18px rgba(58,84,116,.05)!important;-webkit-backdrop-filter:blur(18px) saturate(140%)!important;backdrop-filter:blur(18px) saturate(140%)!important;}
-.desktop-window-controls button{width:40px!important;height:30px!important;border-radius:10px!important;}
-.desktop-window-controls button:hover{background:rgba(86,132,183,.11)!important;}
-.desktop-window-controls .desktop-close-window:hover{background:rgba(224,63,72,.92)!important;color:#fff!important;}
-@media(min-width:980px){
-  #learnView.active{grid-template-columns:minmax(560px,1.08fr) minmax(420px,.92fr)!important;column-gap:30px!important;}
-  #learnView>.desktop-english-primary,#learnView>.settings-grid{min-width:0!important;}
-  .desktop-column-title,#learnView .settings-col>.section-title{height:24px!important;display:flex!important;align-items:center!important;margin:0 2px 12px!important;font-size:19px!important;}
-  .desktop-english-primary{gap:13px!important;}
-  .desktop-english-primary>.home-start{height:60px!important;}
-  .desktop-english-primary>.stats{height:106px!important;}
-  .desktop-english-primary>.spelling-card,.desktop-english-primary>.library-card{min-height:78px!important;}
-  #learnView .settings-grid{gap:13px!important;}
-  #learnView .panel{min-height:206px!important;}
-  #learnView .sound-disclosure>summary{min-height:78px!important;}
-  .v10-module-screen:not(.v104-studying) .v10-module-scroll{grid-template-columns:minmax(540px,1.02fr) minmax(420px,.78fr)!important;column-gap:30px!important;}
-  .desktop-module-aside{min-height:438px!important;padding:24px!important;}
-  .desktop-category-progress{gap:12px!important;}
-  .desktop-category-track{height:6px!important;}
-  .desktop-aside-actions{margin-top:24px!important;}
-  .v10-module-screen.v104-studying .v10-study-shell{max-width:980px!important;margin:20px auto!important;}
-  .desktop-study-return{margin-bottom:18px!important;}
-}
-</style>
-
-
-<style id="matlex-desktop-v1142-responsive-glass">
-/* v11.4.2: right-hand desktop panels must always fit the usable window.
-   Desktop-only custom surfaces reuse the same neutral glass recipe as the rest of MatLex. */
-@media(min-width:980px){
-  :root{
-    --desktop-glass-fill:var(--ml-glass-fill);
-    --desktop-glass-fill-strong:var(--ml-glass-fill-strong);
-    --desktop-glass-line:var(--ml-glass-line);
-    --desktop-glass-line-soft:var(--ml-glass-line-soft);
-    --desktop-glass-shadow:var(--ml-glass-shadow);
+  /* One material recipe across home, English, interview, concept, review and libraries. */
+  .v10-module-card,.stat,.spelling-card,.library-card,.panel,.review-overview,.review-mini,.wrong-row,.empty,
+  .sound-disclosure>summary,.v101-hero,.v101-stat,.v101-library-entry,.v111-progress,.v101-filter-row,.v101-tool,
+  .v10-list-card,.v10-study-shell,.desktop-module-aside,.desktop-aside-mini,.desktop-aside-actions button:not(.primary-aside),
+  .library-row,.quiz-card,.lesson-card,.v10-sheet,.desktop-study-return,.desktop-library-return{
+    background:var(--desktop-glass)!important;background-image:none!important;border:1px solid var(--desktop-line)!important;
+    box-shadow:var(--desktop-shadow)!important;-webkit-backdrop-filter:var(--desktop-blur)!important;backdrop-filter:var(--desktop-blur)!important;
   }
+  .v101-stat,.desktop-aside-mini,.v101-filter-row,.v101-tool,.desktop-aside-actions button:not(.primary-aside),.desktop-library-return{background:var(--desktop-glass-soft)!important}
+  .v101-primary,.home-start,.v10-main-action,.continue,.desktop-aside-actions .primary-aside{background:linear-gradient(135deg,#54a7ff 0%,#2388f1 54%,#1379e7 100%)!important;border:1px solid rgba(255,255,255,.30)!important;box-shadow:0 10px 24px rgba(23,120,226,.14),inset 0 1px 0 rgba(255,255,255,.32)!important;color:#fff!important}
 
-  /* One material language for all desktop-only glass surfaces. */
-  .desktop-titlebar{
-    background:rgba(255,255,255,.075)!important;
-    background-image:none!important;
-    border-bottom:1px solid var(--desktop-glass-line-soft)!important;
-    box-shadow:0 8px 26px rgba(42,68,100,.035),inset 0 1px 0 rgba(255,255,255,.46)!important;
-    -webkit-backdrop-filter:blur(24px) saturate(158%) brightness(1.018)!important;
-    backdrop-filter:blur(24px) saturate(158%) brightness(1.018)!important;
-  }
-  .desktop-module-aside,
-  .desktop-titlebar-logo,
-  .desktop-window-controls,
-  .desktop-study-return{
-    background:var(--desktop-glass-fill)!important;
-    background-image:none!important;
-    border:1px solid var(--desktop-glass-line)!important;
-    box-shadow:var(--desktop-glass-shadow)!important;
-    -webkit-backdrop-filter:blur(22px) saturate(158%) brightness(1.018)!important;
-    backdrop-filter:blur(22px) saturate(158%) brightness(1.018)!important;
-  }
-  .desktop-aside-mini,
-  .desktop-aside-actions button:not(.primary-aside){
-    background:rgba(255,255,255,.018)!important;
-    background-image:none!important;
-    border:1px solid var(--desktop-glass-line-soft)!important;
-    box-shadow:inset 0 1px 0 rgba(255,255,255,.38)!important;
-    -webkit-backdrop-filter:blur(15px) saturate(146%)!important;
-    backdrop-filter:blur(15px) saturate(146%)!important;
-  }
+  /* Shared navigation remains one component and uses the same glass. */
+  #mlSharedNav{left:var(--desktop-rail-left)!important;right:auto!important;top:calc(50% + var(--desktop-titlebar-h)/2)!important;bottom:auto!important;width:var(--desktop-rail-w)!important;height:286px!important;padding:8px!important;margin:0!important;transform:translate3d(0,-50%,0)!important;border-radius:29px!important;grid-template-columns:1fr!important;grid-template-rows:repeat(3,1fr)!important;overflow:hidden!important;background:var(--desktop-glass)!important;border:1px solid var(--desktop-line)!important;box-shadow:var(--desktop-shadow)!important;-webkit-backdrop-filter:var(--desktop-blur)!important;backdrop-filter:var(--desktop-blur)!important}
+  #mlSharedNav::before{left:8px!important;right:8px!important;top:8px!important;bottom:auto!important;width:auto!important;height:calc((100% - 16px)/3)!important;border-radius:21px!important;transform:translate3d(0,calc(var(--ml-nav-index,0)*100%),0)!important;background:rgba(255,255,255,.25)!important}
+  #mlSharedNav button{height:auto!important;min-height:0!important;gap:7px!important;font-size:11px!important}#mlSharedNav button svg{width:24px!important;height:24px!important}
 
-  /* Right overview panel is a self-contained desktop viewport.
-     The header, summary and actions remain visible while category rows scroll inside. */
-  .v10-module-screen:not(.v104-studying) .desktop-module-aside{
-    min-width:0!important;
-    min-height:0!important;
-    height:auto!important;
-    max-height:calc(100vh - var(--desktop-titlebar-h) - 118px)!important;
-    padding:22px!important;
-    display:grid!important;
-    grid-template-rows:auto auto auto minmax(0,1fr) auto!important;
-    overflow:hidden!important;
-    align-self:start!important;
-    position:sticky!important;
-    top:22px!important;
-  }
-  .desktop-aside-head{margin-bottom:14px!important;}
-  .desktop-aside-summary{margin-bottom:16px!important;}
-  .desktop-aside-section-title{margin-bottom:9px!important;}
-  .desktop-category-progress{
-    min-height:0!important;
-    overflow-y:auto!important;
-    overflow-x:hidden!important;
-    padding:2px 6px 2px 0!important;
-    gap:9px!important;
-    scrollbar-width:thin!important;
-    scrollbar-color:rgba(102,128,158,.24) transparent!important;
-  }
-  .desktop-category-progress::-webkit-scrollbar{width:6px!important;}
-  .desktop-category-progress::-webkit-scrollbar-thumb{background:rgba(102,128,158,.22)!important;border-radius:999px!important;}
-  .desktop-aside-actions{margin-top:16px!important;}
+  /* Home hub. */
+  .v10-hub{top:var(--desktop-titlebar-h)!important;height:calc(100vh - var(--desktop-titlebar-h))!important;padding:46px 64px!important;display:flex;align-items:center;overflow-y:auto!important}
+  .v10-hub-inner{width:min(1240px,100%)!important;min-height:auto!important;margin:auto!important;padding:0!important;justify-content:center!important}.v10-hub h1{font-size:46px!important;line-height:1.06!important;margin:10px 0 34px!important}.v10-modules{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:20px!important}.v10-module-card{min-height:238px!important;padding:28px!important;border-radius:30px!important;display:flex!important;flex-direction:column!important;align-items:flex-start!important;justify-content:flex-end!important;gap:18px!important}.v10-module-icon{width:68px!important;height:68px!important;border-radius:22px!important}.v10-module-copy b{font-size:24px!important}.v10-module-arrow{display:none!important}
 
-  /* English settings column cannot disappear below or beyond a resized desktop window. */
-  #learnView>.settings-grid{
-    max-width:100%!important;
-    min-width:0!important;
-    max-height:calc(100vh - var(--desktop-titlebar-h) - 132px)!important;
-    overflow-y:auto!important;
-    overflow-x:hidden!important;
-    padding:0 5px 4px 0!important;
-    scrollbar-width:thin!important;
-    scrollbar-color:rgba(102,128,158,.22) transparent!important;
-  }
-  #learnView>.settings-grid::-webkit-scrollbar{width:6px!important;}
-  #learnView>.settings-grid::-webkit-scrollbar-thumb{background:rgba(102,128,158,.20)!important;border-radius:999px!important;}
+  /* English workspace. Main scrollbar belongs to the window content, never to a middle column. */
+  .app{max-width:none!important;width:100%!important;height:calc(100vh - var(--desktop-titlebar-h))!important;margin-top:var(--desktop-titlebar-h)!important;padding:34px 44px 48px 148px!important;overflow-y:auto!important;overflow-x:hidden!important;scrollbar-width:thin!important;scrollbar-color:rgba(99,125,155,.25) transparent!important}
+  .app::-webkit-scrollbar{width:8px!important}.app::-webkit-scrollbar-thumb{background:rgba(99,125,155,.23)!important;border-radius:999px!important}
+  .app>.view.active{width:min(1240px,100%)!important;margin:0 auto!important}
+  #learnView.active{display:grid!important;grid-template-columns:minmax(0,1fr) minmax(380px,430px)!important;grid-template-areas:"head head" "primary settings"!important;gap:16px 28px!important;align-items:start!important}
+  #learnView>.page-head{grid-area:head!important;margin:0 0 4px!important}#learnView>.desktop-english-primary{grid-area:primary!important;display:grid!important;grid-template-columns:1fr!important;gap:14px!important;min-width:0!important}#learnView>.settings-grid{grid-area:settings!important;display:grid!important;grid-template-columns:1fr!important;gap:14px!important;margin:0!important;min-width:0!important;overflow:visible!important;max-height:none!important;padding:0!important}
+  .desktop-column-title,#learnView .settings-col>.section-title{min-height:24px!important;display:flex!important;align-items:center!important;margin:0 2px 12px!important;font-size:19px!important;line-height:1.2!important;font-weight:720!important;color:#172335!important}.desktop-english-primary>.home-start,.desktop-english-primary>.stats,.desktop-english-primary>.spelling-card,.desktop-english-primary>.library-card{width:100%!important;margin:0!important}.desktop-english-primary>.home-start{height:60px!important}.desktop-english-primary>.stats{gap:12px!important}.stat{height:106px!important}.spelling-card,.library-card{min-height:78px!important}#learnView .panel{min-height:206px!important}#learnView .sound-disclosure>summary{min-height:78px!important}
+  #reviewView.active,#wrongView.active{width:min(1120px,100%)!important}#reviewView .review-overview,#reviewView .review-settings,#wrongView .wrong-filter,#wrongView .wrong-list,#wrongView .manage-inline-list{max-width:none!important}#wrongView .wrong-list{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:12px!important}
 
-  /* Never allow grid minimums to push the right column outside the window. */
-  #learnView.active{grid-template-columns:minmax(0,1.12fr) minmax(0,.88fr)!important;}
-  .v10-module-screen:not(.v104-studying) .v10-module-scroll{grid-template-columns:minmax(0,1.05fr) minmax(0,.82fr)!important;}
-  .desktop-english-primary,.desktop-module-aside,.settings-grid,.settings-col{min-width:0!important;}
+  /* Interview and concept are built from the same workspace rules. */
+  .v10-module-screen{top:var(--desktop-titlebar-h)!important;left:0!important;right:0!important;bottom:0!important;height:auto!important;padding-left:136px!important;overflow-y:auto!important;overflow-x:hidden!important;background:radial-gradient(54vw 42vh at 6% 0%,rgba(83,166,248,.12),transparent 72%),radial-gradient(42vw 36vh at 98% 12%,rgba(105,181,245,.07),transparent 74%),linear-gradient(180deg,#f8fbff,#f4f8fd)!important;scrollbar-width:thin!important;scrollbar-color:rgba(99,125,155,.25) transparent!important}
+  .v10-module-screen::-webkit-scrollbar{width:8px!important}.v10-module-screen::-webkit-scrollbar-thumb{background:rgba(99,125,155,.23)!important;border-radius:999px!important}
+  .v10-module-screen .v10-module-scroll{max-width:none!important;height:auto!important;min-height:100%!important;overflow:visible!important;width:min(var(--desktop-content-max),calc(100% - 56px))!important;margin:0 auto!important;padding:38px 28px 52px!important;scroll-padding-bottom:32px!important;transform:none!important;box-sizing:border-box!important}
+  .v10-module-screen:not(.v104-studying):not(.desktop-library-mode) .v10-module-scroll{display:grid!important;grid-template-columns:minmax(0,1fr) minmax(330px,390px)!important;grid-template-rows:auto auto!important;column-gap:28px!important;row-gap:14px!important;align-content:start!important;align-items:start!important}
+  .v10-module-screen:not(.v104-studying):not(.desktop-library-mode) .v10-topbar{grid-column:1/-1!important;grid-row:1!important;margin:0 0 4px!important}.v10-topbar h1{font-size:38px!important}
+  .desktop-module-main{grid-column:1!important;grid-row:2!important;display:grid!important;grid-template-columns:1fr!important;gap:14px!important;min-width:0!important;align-content:start!important}
+  .desktop-module-main>.v101-hero,.desktop-module-main>.v101-stats,.desktop-module-main>.v101-library-entry,.desktop-module-main>.v111-progress{width:100%!important;margin:0!important}
+  .v10-module-screen:not(.v104-studying):not(.desktop-library-mode) .desktop-module-aside{grid-column:2!important;grid-row:2!important;align-self:start!important;margin:0!important}
+  .v101-hero{min-height:116px!important;padding:22px!important;border-radius:var(--desktop-radius)!important}.v101-stats{gap:12px!important;margin:0!important}.v101-stat{height:88px!important;padding:14px!important;border-radius:20px!important}.v101-library-entry{height:76px!important;border-radius:22px!important}.v111-progress{padding:16px!important;border-radius:20px!important}
+
+  /* Overview panel is fully part of the document flow. No sticky/fixed positioning and no nested vertical scrollbar. */
+  .desktop-module-aside{padding:22px!important;border-radius:var(--desktop-radius)!important;position:static!important;min-width:0!important;min-height:0!important;height:auto!important;max-height:none!important;overflow:visible!important;display:block!important}
+  .desktop-aside-head{display:flex!important;align-items:flex-end!important;justify-content:space-between!important;gap:16px!important;margin-bottom:16px!important}.desktop-aside-head h2{margin:0!important;font-size:20px!important;line-height:1.2!important}.desktop-aside-head span{font-size:12px!important;color:#8190a3!important}.desktop-aside-summary{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:8px!important;margin-bottom:18px!important}.desktop-aside-mini{padding:12px 11px!important;border-radius:17px!important}.desktop-aside-mini span{display:block!important;color:#8090a3!important;font-size:11px!important}.desktop-aside-mini b{display:block!important;margin-top:5px!important;font-size:21px!important;color:#172335!important}.desktop-aside-section-title{font-size:12px!important;font-weight:680!important;color:#64778d!important;margin-bottom:10px!important}.desktop-category-progress{display:grid!important;gap:10px!important;min-height:0!important;overflow:visible!important;padding:0!important}.desktop-category-row{display:grid!important;grid-template-columns:minmax(0,1fr) 44px!important;gap:10px!important;align-items:center!important}.desktop-category-label{min-width:0!important}.desktop-category-label span{display:block!important;font-size:12px!important;color:#32455c!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important}.desktop-category-track{height:5px!important;border-radius:99px!important;background:rgba(108,131,159,.10)!important;margin-top:6px!important;overflow:hidden!important}.desktop-category-track i{display:block!important;height:100%!important;border-radius:inherit!important;background:linear-gradient(90deg,#52a5ff,#2184ef)!important}.desktop-category-row strong{text-align:right!important;font-size:11px!important;color:#7d8da0!important;font-weight:600!important}.desktop-aside-actions{display:grid!important;grid-template-columns:1fr 1fr!important;gap:9px!important;margin-top:18px!important}.desktop-aside-actions button{height:42px!important;border-radius:14px!important;font-size:12px!important;font-weight:650!important;color:#31465e!important}.desktop-aside-actions .primary-aside{color:#fff!important}
+
+  /* Library mode is a real second-level page. Dashboard cards and aside leave the layout entirely. */
+  .v10-module-screen.desktop-library-mode .v10-module-scroll{display:block!important;width:min(var(--desktop-content-max),calc(100% - 56px))!important}.v10-module-screen.desktop-library-mode .desktop-module-main,.v10-module-screen.desktop-library-mode .desktop-module-aside{display:none!important}.v10-module-screen.desktop-library-mode .v10-topbar{margin-bottom:18px!important}.v10-module-screen.desktop-library-mode .v101-library-panel{display:block!important;margin:0!important;padding:0 0 24px!important;max-width:none!important}.desktop-library-return{height:40px!important;padding:0 14px!important;border-radius:14px!important;display:inline-flex!important;align-items:center!important;gap:7px!important;color:#4d637b!important;font-size:12px!important;font-weight:680!important;margin-right:8px!important}.desktop-library-return svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}.v101-library-tools{display:grid!important;grid-template-columns:minmax(0,1fr) minmax(220px,300px)!important;gap:12px!important;margin-bottom:14px!important}.v101-library-tools .v10-search,.v101-filter-row{height:50px!important;margin:0!important}.v101-manage{margin:0 0 14px!important;min-height:40px!important}.v101-library-panel .v10-list{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:12px!important;padding:0 0 28px!important}.v10-list-card{min-height:150px!important;padding:18px!important;border-radius:20px!important;overflow:hidden!important}.v10-list-card h3{overflow-wrap:anywhere!important}
+
+  /* Study mode shares the same wide centered frame and always has a return control. */
+  .v10-module-screen.v104-studying{padding-left:136px!important}.v10-module-screen.v104-studying .v10-module-scroll{display:block!important;width:min(1040px,calc(100% - 56px))!important;margin:0 auto!important;padding-top:38px!important}.v10-module-screen.v104-studying .desktop-module-main,.v10-module-screen.v104-studying .desktop-module-aside{display:none!important}.v10-study-shell{max-width:920px!important;margin:18px auto!important;padding:28px!important;border-radius:var(--desktop-radius)!important}.v10-study-shell h2{font-size:27px!important}.v10-answer{font-size:16px!important;line-height:1.8!important}.desktop-study-return{display:inline-flex!important;align-items:center!important;gap:7px!important;height:40px!important;padding:0 13px!important;margin:0 0 16px!important;border-radius:14px!important;color:#50657d!important;font-size:12px!important;font-weight:650!important}.desktop-study-return svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+
+  /* Professional-English library and study views. */
+  .library-screen{top:var(--desktop-titlebar-h)!important;height:calc(100vh - var(--desktop-titlebar-h))!important;max-width:none!important;width:100%!important;padding:38px 48px 44px 148px!important;overflow-y:auto!important;overflow-x:hidden!important}.library-head,.library-tools,.library-count,.library-list{width:min(1240px,100%)!important;margin-left:auto!important;margin-right:auto!important}.library-list{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:12px!important;align-content:start!important;padding:4px 4px 28px!important}.library-row{min-height:88px!important;border-radius:20px!important;padding:14px 16px!important}.study{width:min(980px,calc(100vw - 150px))!important;padding:34px 24px 44px!important}.study-body{max-width:900px!important}.quiz-card,.lesson-card{max-width:900px!important;margin-left:auto!important;margin-right:auto!important;padding:28px!important}.options{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:12px!important}.continue{width:min(320px,60%)!important;height:50px!important}
+
+  /* Dialogs are centered and use the same material. */
+  .v10-sheet-backdrop{top:var(--desktop-titlebar-h)!important;height:calc(100vh - var(--desktop-titlebar-h))!important;display:flex!important;align-items:center!important;justify-content:center!important;padding:28px!important}.v10-sheet{position:relative!important;left:auto!important;right:auto!important;top:auto!important;bottom:auto!important;width:min(720px,calc(100vw - 120px))!important;max-height:min(82vh,760px)!important;transform:translate3d(0,18px,0) scale(.985)!important;opacity:0!important;border-radius:30px!important}.v10-sheet-backdrop.show .v10-sheet{transform:none!important;opacity:1!important;animation:none!important}.v10-sheet-body{overflow-y:auto!important}
 }
 
-/* Smaller desktop windows change to a stacked workspace instead of clipping the right column. */
-@media(min-width:980px) and (max-width:1179px){
-  .app{padding-left:132px!important;padding-right:34px!important;}
-  #learnView.active{grid-template-columns:minmax(0,1fr)!important;grid-template-areas:"head" "primary" "settings"!important;}
-  #learnView>.settings-grid{max-height:none!important;overflow:visible!important;padding-right:0!important;}
-  .v10-module-scroll{width:calc(100vw - 158px)!important;margin-left:118px!important;padding-left:24px!important;padding-right:24px!important;}
-  .v10-module-screen:not(.v104-studying) .v10-module-scroll{grid-template-columns:minmax(0,1fr)!important;}
-  .v10-module-screen:not(.v104-studying) .v10-topbar,
-  .v10-module-screen:not(.v104-studying) .v101-hero,
-  .v10-module-screen:not(.v104-studying) .v101-stats,
-  .v10-module-screen:not(.v104-studying) .v101-library-entry,
-  .v10-module-screen:not(.v104-studying) .v111-progress,
-  .v10-module-screen:not(.v104-studying) .desktop-module-aside,
-  .v10-module-screen:not(.v104-studying) .v101-library-panel{grid-column:1!important;grid-row:auto!important;}
-  .v10-module-screen:not(.v104-studying) .desktop-module-aside{position:static!important;max-height:460px!important;}
+@media(min-width:980px) and (max-width:1219px){
+  .app{padding-left:132px!important;padding-right:30px!important}.app>.view.active{width:100%!important}#learnView.active{grid-template-columns:1fr!important;grid-template-areas:"head" "primary" "settings"!important}.v10-module-screen{padding-left:124px!important}.v10-module-scroll{width:calc(100% - 30px)!important;padding-left:18px!important;padding-right:18px!important}.v10-module-screen:not(.v104-studying):not(.desktop-library-mode) .v10-module-scroll{grid-template-columns:1fr!important}.v10-module-screen:not(.v104-studying):not(.desktop-library-mode) .v10-topbar,.v10-module-screen:not(.v104-studying):not(.desktop-library-mode) .v101-hero,.v10-module-screen:not(.v104-studying):not(.desktop-library-mode) .v101-stats,.v10-module-screen:not(.v104-studying):not(.desktop-library-mode) .v101-library-entry,.v10-module-screen:not(.v104-studying):not(.desktop-library-mode) .v111-progress,.v10-module-screen:not(.v104-studying):not(.desktop-library-mode) .desktop-module-aside{grid-column:1!important;grid-row:auto!important}.desktop-module-aside{margin-top:4px!important}.v101-library-panel .v10-list{grid-template-columns:repeat(2,minmax(0,1fr))!important}.v10-module-screen.v104-studying{padding-left:124px!important}.library-screen{padding-left:132px!important;padding-right:30px!important}
 }
+@media(min-width:1500px){.v10-hub-inner,.app>.view.active{width:min(1320px,100%)!important}.v101-library-panel .v10-list{grid-template-columns:repeat(3,minmax(0,1fr))!important}}
 </style>
 
 </head>
@@ -3274,7 +3053,7 @@ function v10PickFilter(kind){
 <script id="v11-1-stable-runtime">
 (function(){
   'use strict';
-  const VERSION='11.4.2';
+  const VERSION='11.5.0';
   const q=(s,r=document)=>r.querySelector(s);
   const qa=(s,r=document)=>Array.from(r.querySelectorAll(s));
   const ICONS={
@@ -3521,6 +3300,56 @@ function v10PickFilter(kind){
   },true);
 
   bindTitlebar();alignEnglish();setTimeout(()=>{updateAside('interview');updateAside('concept')},120);
+})();
+</script>
+
+
+<script id="matlex-desktop-v115-runtime">
+(function(){
+  'use strict';
+  const q=(s,r=document)=>r.querySelector(s);
+  const BACK=`<svg viewBox="0 0 20 20"><path d="m12.5 4.5-5.5 5.5 5.5 5.5"/></svg>`;
+  function screenFor(kind){return q(kind==='interview'?'#v10Interview':'#v10Concept')}
+  function panelFor(kind){return q(kind==='interview'?'#v101InterviewLibrary':'#v101ConceptLibrary')}
+  function ensureModuleMain(kind){
+    const screen=screenFor(kind),scroll=q(kind==='interview'?'#v10InterviewScroll':'#v10ConceptScroll');if(!screen||!scroll)return null;
+    let main=q('.desktop-module-main',scroll);
+    if(!main){main=document.createElement('div');main.className='desktop-module-main';const top=q('.v10-topbar',scroll);top?.insertAdjacentElement('afterend',main)}
+    const selectors=['.v101-hero','.v101-stats','[data-v101-library="'+kind+'"]','.v111-progress'];
+    selectors.forEach(sel=>{const el=q(sel,scroll);if(el&&el.parentElement!==main)main.appendChild(el)});
+    return main;
+  }
+  function ensureLibraryReturn(kind){
+    const panel=panelFor(kind);if(!panel)return;
+    const manage=q('.v101-manage',panel);if(!manage||q('.desktop-library-return',manage))return;
+    const btn=document.createElement('button');btn.type='button';btn.className='desktop-library-return';btn.innerHTML=BACK+'<span>返回概览</span>';
+    btn.onclick=e=>{e.preventDefault();e.stopPropagation();window.v101ToggleLibrary?.(kind,false)};
+    manage.prepend(btn);
+  }
+  function syncLibraryMode(kind){
+    ensureModuleMain(kind);
+    const screen=screenFor(kind),panel=panelFor(kind);if(!screen||!panel)return;
+    const open=!!(window.v101LibraryOpen?.[kind]||panel.classList.contains('open'));
+    screen.classList.toggle('desktop-library-mode',open);
+    ensureLibraryReturn(kind);
+    if(open){screen.scrollTo?.({top:0,behavior:'auto'});}
+  }
+  function syncAll(){syncLibraryMode('interview');syncLibraryMode('concept')}
+  const oldToggle=window.v101ToggleLibrary;
+  if(typeof oldToggle==='function')window.v101ToggleLibrary=function(kind,force){const r=oldToggle(kind,force);requestAnimationFrame(()=>syncLibraryMode(kind));return r};
+  const oldMode=window.v101SetMode;
+  if(typeof oldMode==='function')window.v101SetMode=function(kind,mode){const r=oldMode(kind,mode);requestAnimationFrame(()=>syncLibraryMode(kind));return r};
+  const oldHome=window.v111GoModuleHome;
+  if(typeof oldHome==='function')window.v111GoModuleHome=function(kind,animate){const r=oldHome(kind,animate);requestAnimationFrame(()=>syncLibraryMode(kind));return r};
+  const oldOpen=window.v10OpenModule;
+  if(typeof oldOpen==='function')window.v10OpenModule=function(kind){const r=oldOpen(kind);requestAnimationFrame(()=>{if(kind==='interview'||kind==='concept')syncLibraryMode(kind)});return r};
+  const oldStartStudy=window.v10StartStudy;
+  if(typeof oldStartStudy==='function')window.v10StartStudy=function(kind,arr){screenFor(kind)?.classList.remove('desktop-library-mode');return oldStartStudy(kind,arr)};
+  const oldI=window.v10RenderInterview,oldC=window.v10RenderConcept;
+  if(typeof oldI==='function')window.v10RenderInterview=function(){const r=oldI();requestAnimationFrame(()=>syncLibraryMode('interview'));return r};
+  if(typeof oldC==='function')window.v10RenderConcept=function(){const r=oldC();requestAnimationFrame(()=>syncLibraryMode('concept'));return r};
+  window.addEventListener('resize',()=>requestAnimationFrame(syncAll));
+  setTimeout(syncAll,180);
 })();
 </script>
 

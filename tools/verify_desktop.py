@@ -11,7 +11,7 @@ audio = root / 'src' / 'audio'
 package = json.loads((root / 'package.json').read_text(encoding='utf-8'))
 main_js = (root / 'main.js').read_text(encoding='utf-8')
 preload_js = (root / 'preload.js').read_text(encoding='utf-8')
-if package.get('version') != '11.4.2':
+if package.get('version') != '11.5.0':
     raise SystemExit('Desktop package version mismatch')
 if package.get('build',{}).get('nsis',{}).get('createDesktopShortcut') is not True:
     raise SystemExit('NSIS desktop shortcut is not enabled')
@@ -21,14 +21,12 @@ if 'data-window-action="minimize"' not in html or 'data-window-action="maximize"
     raise SystemExit('Custom window controls are incomplete')
 
 checks = {
-    'desktop version marker': 'name="matlex-version" content="11.4.2-desktop"' in html,
-    'desktop layout layer': 'id="matlex-desktop-layout"' in html,
-    'desktop v11.4 layer': 'id="matlex-desktop-v114-layout"' in html,
-    'desktop v11.4.1 polish': 'id="matlex-desktop-v1141-polish"' in html,
-    'desktop v11.4.2 responsive glass': 'id="matlex-desktop-v1142-responsive-glass"' in html,
+    'desktop version marker': 'name="matlex-version" content="11.5.0-desktop"' in html,
+    'desktop v11.5 unified layout': 'id="matlex-desktop-v115-unified"' in html,
     'custom desktop titlebar': 'id="matlexDesktopTitlebar"' in html,
     'desktop module aside': 'desktop-module-aside' in html,
     'desktop study return': 'desktop-study-return' in html,
+    'desktop library mode': 'desktop-library-mode' in html and 'desktop-library-return' in html,
     'desktop local audio path': "location.protocol==='file:'?'./audio/'" in html,
     'shared navigation preserved': 'id=\'mlSharedNav\'' in html or 'id="mlSharedNav"' in html,
     'three study modules preserved': all(x in html for x in ['data-module="english"','data-module="interview"','data-module="concept"']),
