@@ -1,0 +1,14 @@
+MatLex Desktop v11.3.1
+
+建议把这个桌面版放在一个新的 GitHub 仓库中，不要覆盖 Android 仓库。
+
+上传后：
+1. 打开 GitHub 仓库的 Actions。
+2. 选择 MatLex Desktop Windows Build。
+3. 点击 Run workflow。
+4. 等待构建完成。
+5. 在 Artifacts 下载 MatLex-Desktop-Windows-v11.3.1。
+6. 解压后会得到 Windows 安装版 EXE 和便携版 EXE。
+
+如果只想先在电脑上看看桌面排版，可直接双击 START_PREVIEW.bat。
+预览模式没有预生成 Ava 音频时，会自动使用电脑系统英语语音作为后备。
