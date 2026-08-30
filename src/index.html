@@ -6,7 +6,7 @@
 <meta name="theme-color" content="#ffffff">
 <meta name="color-scheme" content="light">
 <title>MatLex Desktop</title>
-<meta name="matlex-version" content="11.4.1-desktop">
+<meta name="matlex-version" content="11.4.2-desktop">
 <link rel="manifest" href="manifest.webmanifest">
 <style>
 :root{
@@ -1963,7 +1963,7 @@ body{
 
 
 <style id="matlex-desktop-v1141-polish">
-/* Desktop v11.4.1: balanced workspace, custom glass window controls and precise column alignment. */
+/* Desktop v11.4.2: responsive right panels and one unified desktop glass material. */
 :root{--desktop-titlebar-h:50px;}
 .desktop-titlebar{padding:0 9px 0 16px!important;background:linear-gradient(180deg,rgba(249,253,255,.82),rgba(239,247,255,.60))!important;border-bottom:1px solid rgba(191,211,233,.48)!important;box-shadow:0 7px 24px rgba(56,87,124,.045),inset 0 1px 0 rgba(255,255,255,.88)!important;}
 .desktop-titlebar-brand{font-size:12.5px!important;color:#32465e!important;}
@@ -1990,6 +1990,118 @@ body{
   .desktop-aside-actions{margin-top:24px!important;}
   .v10-module-screen.v104-studying .v10-study-shell{max-width:980px!important;margin:20px auto!important;}
   .desktop-study-return{margin-bottom:18px!important;}
+}
+</style>
+
+
+<style id="matlex-desktop-v1142-responsive-glass">
+/* v11.4.2: right-hand desktop panels must always fit the usable window.
+   Desktop-only custom surfaces reuse the same neutral glass recipe as the rest of MatLex. */
+@media(min-width:980px){
+  :root{
+    --desktop-glass-fill:var(--ml-glass-fill);
+    --desktop-glass-fill-strong:var(--ml-glass-fill-strong);
+    --desktop-glass-line:var(--ml-glass-line);
+    --desktop-glass-line-soft:var(--ml-glass-line-soft);
+    --desktop-glass-shadow:var(--ml-glass-shadow);
+  }
+
+  /* One material language for all desktop-only glass surfaces. */
+  .desktop-titlebar{
+    background:rgba(255,255,255,.075)!important;
+    background-image:none!important;
+    border-bottom:1px solid var(--desktop-glass-line-soft)!important;
+    box-shadow:0 8px 26px rgba(42,68,100,.035),inset 0 1px 0 rgba(255,255,255,.46)!important;
+    -webkit-backdrop-filter:blur(24px) saturate(158%) brightness(1.018)!important;
+    backdrop-filter:blur(24px) saturate(158%) brightness(1.018)!important;
+  }
+  .desktop-module-aside,
+  .desktop-titlebar-logo,
+  .desktop-window-controls,
+  .desktop-study-return{
+    background:var(--desktop-glass-fill)!important;
+    background-image:none!important;
+    border:1px solid var(--desktop-glass-line)!important;
+    box-shadow:var(--desktop-glass-shadow)!important;
+    -webkit-backdrop-filter:blur(22px) saturate(158%) brightness(1.018)!important;
+    backdrop-filter:blur(22px) saturate(158%) brightness(1.018)!important;
+  }
+  .desktop-aside-mini,
+  .desktop-aside-actions button:not(.primary-aside){
+    background:rgba(255,255,255,.018)!important;
+    background-image:none!important;
+    border:1px solid var(--desktop-glass-line-soft)!important;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.38)!important;
+    -webkit-backdrop-filter:blur(15px) saturate(146%)!important;
+    backdrop-filter:blur(15px) saturate(146%)!important;
+  }
+
+  /* Right overview panel is a self-contained desktop viewport.
+     The header, summary and actions remain visible while category rows scroll inside. */
+  .v10-module-screen:not(.v104-studying) .desktop-module-aside{
+    min-width:0!important;
+    min-height:0!important;
+    height:auto!important;
+    max-height:calc(100vh - var(--desktop-titlebar-h) - 118px)!important;
+    padding:22px!important;
+    display:grid!important;
+    grid-template-rows:auto auto auto minmax(0,1fr) auto!important;
+    overflow:hidden!important;
+    align-self:start!important;
+    position:sticky!important;
+    top:22px!important;
+  }
+  .desktop-aside-head{margin-bottom:14px!important;}
+  .desktop-aside-summary{margin-bottom:16px!important;}
+  .desktop-aside-section-title{margin-bottom:9px!important;}
+  .desktop-category-progress{
+    min-height:0!important;
+    overflow-y:auto!important;
+    overflow-x:hidden!important;
+    padding:2px 6px 2px 0!important;
+    gap:9px!important;
+    scrollbar-width:thin!important;
+    scrollbar-color:rgba(102,128,158,.24) transparent!important;
+  }
+  .desktop-category-progress::-webkit-scrollbar{width:6px!important;}
+  .desktop-category-progress::-webkit-scrollbar-thumb{background:rgba(102,128,158,.22)!important;border-radius:999px!important;}
+  .desktop-aside-actions{margin-top:16px!important;}
+
+  /* English settings column cannot disappear below or beyond a resized desktop window. */
+  #learnView>.settings-grid{
+    max-width:100%!important;
+    min-width:0!important;
+    max-height:calc(100vh - var(--desktop-titlebar-h) - 132px)!important;
+    overflow-y:auto!important;
+    overflow-x:hidden!important;
+    padding:0 5px 4px 0!important;
+    scrollbar-width:thin!important;
+    scrollbar-color:rgba(102,128,158,.22) transparent!important;
+  }
+  #learnView>.settings-grid::-webkit-scrollbar{width:6px!important;}
+  #learnView>.settings-grid::-webkit-scrollbar-thumb{background:rgba(102,128,158,.20)!important;border-radius:999px!important;}
+
+  /* Never allow grid minimums to push the right column outside the window. */
+  #learnView.active{grid-template-columns:minmax(0,1.12fr) minmax(0,.88fr)!important;}
+  .v10-module-screen:not(.v104-studying) .v10-module-scroll{grid-template-columns:minmax(0,1.05fr) minmax(0,.82fr)!important;}
+  .desktop-english-primary,.desktop-module-aside,.settings-grid,.settings-col{min-width:0!important;}
+}
+
+/* Smaller desktop windows change to a stacked workspace instead of clipping the right column. */
+@media(min-width:980px) and (max-width:1179px){
+  .app{padding-left:132px!important;padding-right:34px!important;}
+  #learnView.active{grid-template-columns:minmax(0,1fr)!important;grid-template-areas:"head" "primary" "settings"!important;}
+  #learnView>.settings-grid{max-height:none!important;overflow:visible!important;padding-right:0!important;}
+  .v10-module-scroll{width:calc(100vw - 158px)!important;margin-left:118px!important;padding-left:24px!important;padding-right:24px!important;}
+  .v10-module-screen:not(.v104-studying) .v10-module-scroll{grid-template-columns:minmax(0,1fr)!important;}
+  .v10-module-screen:not(.v104-studying) .v10-topbar,
+  .v10-module-screen:not(.v104-studying) .v101-hero,
+  .v10-module-screen:not(.v104-studying) .v101-stats,
+  .v10-module-screen:not(.v104-studying) .v101-library-entry,
+  .v10-module-screen:not(.v104-studying) .v111-progress,
+  .v10-module-screen:not(.v104-studying) .desktop-module-aside,
+  .v10-module-screen:not(.v104-studying) .v101-library-panel{grid-column:1!important;grid-row:auto!important;}
+  .v10-module-screen:not(.v104-studying) .desktop-module-aside{position:static!important;max-height:460px!important;}
 }
 </style>
 
@@ -3162,7 +3274,7 @@ function v10PickFilter(kind){
 <script id="v11-1-stable-runtime">
 (function(){
   'use strict';
-  const VERSION='11.3.1';
+  const VERSION='11.4.2';
   const q=(s,r=document)=>r.querySelector(s);
   const qa=(s,r=document)=>Array.from(r.querySelectorAll(s));
   const ICONS={
@@ -3370,7 +3482,7 @@ function v10PickFilter(kind){
     const cats=[...new Set(all.map(x=>x.category))].map(cat=>{
       const items=all.filter(x=>x.category===cat),done=items.filter(x=>mastered.has(x.id)).length;
       return {cat,total:items.length,done,pct:Math.round(done/Math.max(1,items.length)*100)};
-    }).sort((a,b)=>b.total-a.total).slice(0,6);
+    }).sort((a,b)=>b.total-a.total);
     return {all,st,mastered,review,cats};
   }
   function ensureAside(kind){
