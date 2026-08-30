@@ -1,0 +1,66 @@
+name: MatLex Desktop Windows Build
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main ]
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+    timeout-minutes: 120
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Restore Microsoft Ava audio cache
+        id: audio-cache
+        uses: actions/cache@v4
+        with:
+          path: src/audio
+          key: matlex-desktop-ava-${{ hashFiles('tools/tts_manifest.json', 'tools/generate_desktop_audio.py') }}
+
+      - name: Install Edge neural TTS
+        if: steps.audio-cache.outputs.cache-hit != 'true'
+        run: python -m pip install edge-tts==7.2.8
+
+      - name: Generate Microsoft Ava audio
+        if: steps.audio-cache.outputs.cache-hit != 'true'
+        env:
+          ML_TTS_VOICE: en-US-AvaNeural
+          ML_TTS_WORD_RATE: -12%
+          ML_TTS_EXAMPLE_RATE: +0%
+          ML_TTS_CONCURRENCY: '7'
+          ML_TTS_RETRIES: '6'
+        run: python tools/generate_desktop_audio.py
+
+      - name: Verify desktop app assets
+        run: python tools/verify_desktop.py
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Electron dependencies
+        run: npm install
+
+      - name: Build Windows installer and portable app
+        env:
+          CSC_IDENTITY_AUTO_DISCOVERY: 'false'
+        run: npm run dist:win
+
+      - name: Upload Windows apps
+        uses: actions/upload-artifact@v4
+        with:
+          name: MatLex-Desktop-Windows-v11.3.1
+          path: |
+            dist/*.exe
+            dist/*.blockmap
+          if-no-files-found: error
