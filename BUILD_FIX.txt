@@ -1,0 +1,5 @@
+MatLex Desktop v11.3.1 build fix
+
+Fix: electron-builder is forced to use --publish never.
+This prevents GitHub Actions from requesting GH_TOKEN after the EXE files have already been built.
+No Personal Access Token is required.

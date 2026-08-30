@@ -1,11 +1,13 @@
-MatLex Desktop v11.3.1
+MatLex Desktop v11.4.1
 Platform: Windows 10/11 x64
 Framework: Electron
 Default window: 1440 x 900
 Minimum window: 980 x 680
 Desktop breakpoint: 980 px
+Custom frameless title bar: yes
+Automatic desktop shortcut: yes, installer and packaged first run
 GitHub Actions workflow: MatLex Desktop Windows Build
-Artifact: MatLex-Desktop-Windows-v11.3.1
+Artifact: MatLex-Desktop-Windows-v11.4.1
 Outputs: NSIS installer EXE + portable EXE
 Source baseline: MatLex Android v11.3.1
 Vocabulary: 999 built-in professional English items
